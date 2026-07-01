@@ -9,7 +9,7 @@ import {
   set,
   onValue,
   remove
-} from "https://gstatic.com";
+} from "https://firebase.google.com/docs/web/setup#available-libraries";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAzoVzg0KbJ9m_NYiOwBpIQKN5hflmu1t4",
