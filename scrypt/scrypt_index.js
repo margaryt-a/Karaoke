@@ -9,7 +9,7 @@ import {
   set,
   onValue,
   remove
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+} from "https://gstatic.com";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAzoVzg0KbJ9m_NYiOwBpIQKN5hflmu1t4",
