@@ -1,6 +1,6 @@
 
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 import {
   getDatabase,
@@ -9,7 +9,7 @@ import {
   set,
   onValue,
   remove
-} from "https://firebase.google.com/docs/web/setup#available-libraries";
+} from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAzoVzg0KbJ9m_NYiOwBpIQKN5hflmu1t4",
