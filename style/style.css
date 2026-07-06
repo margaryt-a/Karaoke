@@ -1,3 +1,56 @@
-   body { font-family: sans-serif; padding: 20px; }
-        ul { list-style: none; padding: 0; }
-        li { padding: 10px; border-bottom: 1px solid #eee; }
+body { font-family: sans-serif; padding: 20px; }
+   ul { list-style: none; padding: 0; }
+   li { padding: 10px; border-bottom: 1px solid #eee; 
+}
+
+h1 {
+   text-align: center;
+}
+
+.songChoice {
+   text-align: center;
+   text-decoration: underline;
+}
+
+.typeSong {
+   padding: 0;
+   margin-bottom: 0;
+}
+
+.listview{
+   color: black;
+   text-decoration: none;
+}
+
+.input-group {
+  position: relative;
+  margin-top: 20px;
+}
+
+input{
+   display: block;
+   margin-top: 20px;
+   margin-bottom: 10px;
+   width: 50%;
+   height: 25px;
+   font-size: 15px;
+}
+
+label {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: #090909;
+  pointer-events: none; /* Чтобы клик проходил сквозь label в input */
+  transition: all 0.5s ease; /* Плавный переход */
+  /*background: white;*/
+  padding: 0 4px;
+}
+
+/* Когда поле в фокусе или заполнено (не placeholder-shown) */
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  top: -10px;
+  font-size: 15px;
+  color: #350c82;
+}

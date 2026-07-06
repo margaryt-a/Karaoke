@@ -4,65 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js",
+        "firebase/database": "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js"
+      }
+    }
+    </script>
     <title>Karaoke</title>
 </head>
 <body>
     <h1>Karaoke Recklinghausen</h1>
     <main>
-        <p>Оберіть пісню</p>
-        <p>Ukranian songs</p>   
+        <p class="songChoice">Оберіть пісню</p>
+        <p class="typeSong">Ukranian songs</p>   
         <select name="u-songs" id="u-songs">
-            <option value=""> Оберіть пісню</option>
         </select>
 
-        <p>Russian songs</p>
+        <p class="typeSong">Russian songs</p>
         <select name="r-songs" id="r-songs">
-            <option value=""> 1</option>
-            <option value=""> 2</option>
-            <option value=""> 3</option>
-            <option value=""> 4</option>
-            <option value=""> 5</option>
-            <option value=""> 6</option>
-            <option value=""> 7</option>
-            <option value=""> 8</option>
-            <option value=""> 9</option>
-            <option value=""> 10</option>
         </select>
 
-        <p>Englisch songs</p>
+        <p class="typeSong">Englisch songs</p>
         <select name="e-songs" id="e-songs">
-            <option value=""> 1</option>
-            <option value=""> 2</option>
-            <option value=""> 3</option>
-            <option value=""> 4</option>
-            <option value=""> 5</option>
-            <option value=""> 6</option>
-            <option value=""> 7</option>
-            <option value=""> 8</option>
-            <option value=""> 9</option>
-            <option value=""> 10</option>
         </select>
 
-        <p>multik songs</p>
+        <p class="typeSong">multik songs</p>
         <select name="m-songs" id="m-songs">
-            <option value=""> 1</option>
-            <option value=""> 2</option>
-            <option value=""> 3</option>
-            <option value=""> 4</option>
-            <option value=""> 5</option>
-            <option value=""> 6</option>
-            <option value=""> 7</option>
-            <option value=""> 8</option>
-            <option value=""> 9</option>
-            <option value=""> 10</option>
         </select>
     
+        <div class="input-group">
+            <input type="text" id="inputSong" placeholder="">
+            <label for="inputSong">Інша пісня</label>
+        </div>
+        
 
-        <input type="text" placeholder="Інша пісня">
-        <input type="text" placeholder="Введіть своє ім'я">
-        <button>Send</button>
+        <div class="input-group"> 
+            <input type="text" id="users_name" placeholder="" required>
+            <label for="users_name">Введіть своє ім'я</label>
+        </div>
+        
+
+
+        <button id="send_btn">Send</button>
         
     </main>
+    <a href="songsList.html" target="_blank" class="listview">Переглянути список</a>
     <script type="module" src="scrypt/scrypt_index.js"></script>
 </body>
 <footer>Created by Margaryta Zinchenko</footer>

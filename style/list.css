@@ -1,0 +1,35 @@
+/* Контейнер всей таблицы */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background: #361448;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Строка (и заголовок, и данные) */
+.row {
+    display: grid;
+    /* 50px под номер, остальное делим пополам */
+    grid-template-columns: 50px 1fr 1fr;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+/* Заголовки таблицы */
+.header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Выравнивание текста */
+.col-left { text-align: center; color: #a595b4; }
+.col-medium { font-weight: 500; color: #a595b4; }
+.col-rechts { color: #a595b4; }
+
