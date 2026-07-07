@@ -46,7 +46,8 @@ const selects = [
     document.getElementById("u-songs"),
     document.getElementById("r-songs"),
     document.getElementById("e-songs"),
-    document.getElementById("m-songs")
+    document.getElementById("m-songs"),
+    document.getElementById("inputSong")
 ];
 
 const SendBtn = document.getElementById("send_btn")

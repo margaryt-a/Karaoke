@@ -1,20 +1,38 @@
-body { font-family: sans-serif; padding: 20px; }
-   ul { list-style: none; padding: 0; }
-   li { padding: 10px; border-bottom: 1px solid #eee; 
+body { font-family: sans-serif; padding: 20px; 
+   background-color: #231427;
+}
+
+img {
+   height: 400px;
+   width: auto;
+   mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%); 
+   -webkit-mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+}
+
+ul { list-style: none; padding: 0; }
+li { padding: 10px; border-bottom: 1px solid #eee; 
 }
 
 h1 {
    text-align: center;
 }
 
+select {
+   height: 30px;
+   font-size: 15px;
+   width: auto; /*добавить потом, чтоб у всех ролей была одна ширина по дефолту*/
+}
+
 .songChoice {
    text-align: center;
    text-decoration: underline;
+   color: #FAEDC3;
 }
 
 .typeSong {
    padding: 0;
    margin-bottom: 0;
+   color: #FAEDC3;
 }
 
 .listview{
@@ -50,7 +68,16 @@ label {
 /* Когда поле в фокусе или заполнено (не placeholder-shown) */
 input:focus + label,
 input:not(:placeholder-shown) + label {
-  top: -10px;
+  top: -15px;
   font-size: 15px;
-  color: #350c82;
+  color: #FAEDC3;
+}
+
+.send_btn {
+   border-radius: 50%;
+   width: 100px;
+   height: 40px;
+   font-size: 20px;
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: bold;
 }
