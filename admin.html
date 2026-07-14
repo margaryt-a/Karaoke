@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Manager</title>
+    <link rel="stylesheet" href="style/admin.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js",
+        "firebase/database": "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js"
+      }
+    }
+    </script>
+</head>
+<body>
+
+<main class="container">
+    
+    <section id="admin-section">
+        <p id="edit-click" style="cursor: pointer; font-weight: bold;" class="edit-p">⚙️ Редактировать библиотеку</p>
+        
+        <div id="edit-list" hidden>
+            <div class="edit-row edit-header">
+                <div class="col-types">Type</div>
+                <div class="col-song">Song</div>
+                <div id="song-add" class="col-add" style="cursor: pointer;">➕</div>
+            </div>
+
+            <div id="add-form" hidden class="form-container">
+                <select id="new-song-type">
+                    <option value="u-songs">Українська</option>
+                    <option value="r-songs">Російська</option>
+                    <option value="e-songs">Англійська</option>
+                    <option value="m-songs">Мультики</option>
+                </select>
+                <input type="text" id="new-song-name" placeholder="Назва пісні">
+                <button id="save-song-btn">Зберегти</button>
+            </div>
+
+            <div id="edit-songs" style="color: #D8E1CE;"></div>
+        </div>
+    </section>
+
+    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #ddd;">
+
+    <section id="queue-section">
+        <div class="queue-row queue-header">
+            <div class="col-left">№</div>
+            <div class="col-medium">Song</div>
+            <div class="col-rechts">Name</div>
+            <div class="col-status">Status</div>
+        </div>
+        <div id="queue-container" style="color: #D8E1CE;"></div>
+    </section>
+
+    
+
+</main>
+<button id="all-delete" class="all-delete">Очистить всё</button>
+<script type="module" src="scrypt/admin.js"></script>
+</body>
+</html>

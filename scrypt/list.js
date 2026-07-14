@@ -28,25 +28,30 @@ const queueContainer = document.getElementById("queue-container");
 
 onValue(ref(db, 'songsList'), (snapshot) => {
     const data = snapshot.val();
-    
-    // 1. Очищаем старую таблицу
     queueContainer.innerHTML = ""; 
 
     if (data) {
-        // 2. Превращаем объект из Firebase в массив, чтобы можно было перебирать
         let index = 1;
-        Object.values(data).forEach((item) => {
-            // Создаем строку
+        // Используем entries, чтобы получить ID (key) и сам объект (item)
+        Object.entries(data).forEach(([id, item]) => {
             const row = document.createElement("div");
             row.className = "row";
             
-            // Вставляем данные: ${index++} автоматически делает 1, 2, 3...
+            // Если статус "done" — показываем галочку, иначе пустоту
+            const statusIcon = item.status === "done" ? "✅" : "❌";
+            
             row.innerHTML = `
                 <div class="col-left">${index++}</div>
                 <div class="col-medium">${item.song}</div>
                 <div class="col-rechts">${item.name}</div>
+                <div class="col-status">${statusIcon}</div>
             `;
-            
+            // ВИЗУАЛ: Если в базе стоит priority: true — красим строку
+                if (item.priority) {
+                    row.style.backgroundColor = "#98e8aa"; // Зеленоватый фон
+                    row.style.border = "1px solid #28a745"; // Зеленая рамка
+                    row.style.color = "#000000";
+                }
             queueContainer.appendChild(row);
         });
     } else {

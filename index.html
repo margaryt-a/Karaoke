@@ -17,7 +17,12 @@
 </head>
 <body>
     <!--<h1>Karaoke Recklinghausen</h1>-->
-    <main>
+    <div class="first_datei">
+        <input type="text" id="input-code" placeholder="Input code">
+        <input type="text" id="input-name" placeholder="Input name">
+        <button id="login-btn">Send</button>
+    </div>
+    <main class="main hidden">
         <h1 class="songChoice">Оберіть пісню</h1>
         <p class="typeSong">Ukranian songs</p>   
         <select name="u-songs" id="u-songs">
@@ -41,16 +46,17 @@
         </div>
         
 
-        <div class="input-group"> 
+        <!--<div class="input-group"> 
             <input type="text" id="users_name" placeholder="" required>
             <label for="users_name">Введіть своє ім'я</label>
-        </div>
+        </div>-->
         
 
 
         <button class="send_btn" id="send_btn">Send</button>
         
     </main>
+    <!--<button onclick="localStorage.clear(); location.reload();">Сбросить тест</button>-->
     <a href="songsList.html" target="_blank" class="listview" style="color: #FAEDC3;">Переглянути список</a>
     <script type="module" src="scrypt/scrypt_index.js"></script>
 </body>

@@ -7,6 +7,7 @@ import {
   ref,
   push,
   set,
+  get,
   onValue,
   remove
 } from "firebase/database";
@@ -22,108 +23,196 @@ const firebaseConfig = {
 };
 
 
-
-
-// Initialize Firebase
+// 1. Инициализация Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Находим ваш селект <select id="u-songs">
-// Находим все селекты
+// 2. Константы элементов
+const loginScreen = document.querySelector(".first_datei");
+const mainScreen = document.querySelector(".main");
+const loginBtn = document.getElementById("login-btn");
+const SendBtn = document.getElementById("send_btn");
+
 const selectU = document.getElementById("u-songs");
 const selectR = document.getElementById("r-songs");
 const selectE = document.getElementById("e-songs");
 const selectM = document.getElementById("m-songs");
+const inputSong = document.getElementById("inputSong");
 
-// Ссылки на папки в базе
-const uSongsRef = ref(db, 'u-songs');
-const rSongsRef = ref(db, 'r-songs');
-const eSongsRef = ref(db, 'e-songs');
-const mSongsRef = ref(db, 'm-songs');
+const selects = [selectU, selectR, selectE, selectM, inputSong];
 
+// 3. Логика Авторизации
+window.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("isLoggedIn") === "true") {
+        loginScreen.style.display = "none";
+        mainScreen.classList.remove("hidden");
+        //document.getElementById("users_name").value = localStorage.getItem("userName") || "";
+    }
+});
 
-const selects = [
-    document.getElementById("u-songs"),
-    document.getElementById("r-songs"),
-    document.getElementById("e-songs"),
-    document.getElementById("m-songs"),
-    document.getElementById("inputSong")
-];
+loginBtn.addEventListener("click", () => {
+    const codeInput = document.getElementById("input-code").value.trim();
+    const nameInput = document.getElementById("input-name").value.trim();
 
-const SendBtn = document.getElementById("send_btn")
+    if (!codeInput || !nameInput) {
+        alert("Введіть код та ім'я!");
+        return;
+    }
 
-// Универсальная функция для заполнения любого селекта
+    // Получаем сразу весь корень базы, чтобы достать и коды, и adminName
+    get(ref(db)).then((snapshot) => {
+        if (!snapshot.exists()) {
+            alert("Помилка системи: дані не знайдені!");
+            return;
+        }
+
+        const data = snapshot.val();
+        const dbAdminName = data.adminName; 
+        const dbCodes = data.codes; // Объект с adminCode и userCode
+
+        // 1. ПРОВЕРКА АДМИНА
+        if (codeInput === dbCodes.adminCode && nameInput === dbAdminName) {
+            localStorage.setItem("isAdmin", "true");
+            window.open("admin.html", "_blank");
+
+            return;
+        }
+
+        // 2. ПРОВЕРКА ОБЫЧНОГО ПОЛЬЗОВАТЕЛЯ
+        if (codeInput !== dbCodes.userCode) {
+            alert("Невірний код доступу!");
+            return;
+        }
+
+        if (!validateName(nameInput)) {
+            alert("Ім'я може містити тільки літери!");
+            return;
+        }
+
+        // 3. ПРОВЕРКА УНИКАЛЬНОСТИ ИМЕНИ
+        const usersRef = ref(db, "users");
+        get(usersRef).then((userSnapshot) => {
+            const users = userSnapshot.val();
+            let nameTaken = false;
+
+            if (users) {
+                Object.values(users).forEach(user => {
+                    if (user.name.toLowerCase() === nameInput.toLowerCase()) {
+                        nameTaken = true;
+                    }
+                });
+            }
+
+            if (nameTaken) {
+                alert("Це ім'я вже зайняте іншим учасником!");
+            } else {
+                push(usersRef, { name: nameInput }).then(() => {
+                    localStorage.setItem("isLoggedIn", "true");
+                    localStorage.setItem("userName", nameInput);
+                    
+                    loginScreen.style.display = "none";
+                    mainScreen.classList.remove("hidden");
+                    console.log("Реєстрація успішна!");
+                }).catch((error) => {
+                    alert("Помилка при реєстрації: " + error.message);
+                });
+            }
+        });
+    });
+});
+
+// 4. Логика Очереди и Отправки
+SendBtn.addEventListener("click", () => {
+    // БЕРЕМ ИМЯ ИЗ ПАМЯТИ (localStorage), а не из HTML-инпута
+    const userName = localStorage.getItem("userName"); 
+    
+    // Если по какой-то причине имени нет (например, стерли кеш), просим зайти заново
+    if (!userName) {
+        alert("Помилка: Ви не авторизовані. Будь ласка, оновіть сторінку.");
+        return;
+    }
+
+    const fromList = selectSong();
+    const inputSongs = document.getElementById("inputSong").value;
+    const songName = fromList || inputSongs;
+
+    if (!songName) {
+        alert("Оберіть або введіть пісню!");
+        return;
+    }
+
+    const songsRef = ref(db, "songsList");
+    
+    get(songsRef).then((snapshot) => {
+        const data = snapshot.val();
+        let alreadyInQueue = false;
+
+        if (data) {
+            Object.values(data).forEach((item) => {
+                // Проверяем, есть ли уже этот человек с активной песней
+                if (item.name === userName && item.status === "pending") {
+                    alreadyInQueue = true;
+                }
+            });
+        }
+
+        if (alreadyInQueue) {
+            alert("Ви вже в черзі! Дочекайтеся виконання своєї пісні.");
+        } else {
+            // ОТПРАВЛЯЕМ В БАЗУ: Имя берется из переменной userName
+            // ... внутри блока else ...
+              console.log("Попытка отправки в Firebase...", { name: userName, song: songName });
+
+              push(songsRef, {
+                  name: userName,
+                  song: songName,
+                  status: "pending"
+              }).then(() => {
+                  console.log("УСПЕХ: Данные ушли в базу!");
+                  alert("Пісня додана до списку!");
+              }).catch((error) => {
+                  console.error("ОШИБКА отправки:", error); // Если ошибка здесь — база нас не пускает!
+                  alert("Помилка бази даних: " + error.message);
+              });
+        }
+    });
+});
+
+// 5. Вспомогательные функции
+function validateName(name) {
+    const regeln = /^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ]+$/u;
+    return regeln.test(name);
+}
+
+function selectSong() {
+    return selectU.value || selectR.value || selectE.value || selectM.value;
+}
+
 function fillSelect(refPath, selectElement) {
     onValue(refPath, (snapshot) => {
         const data = snapshot.val();
         selectElement.innerHTML = '<option value="">Оберіть пісню</option>';
         if (data) {
             Object.keys(data).forEach((key) => {
-                const songName = data[key];
                 const option = document.createElement("option");
-                option.value = songName;
-                option.textContent = songName;
+                option.value = data[key];
+                option.textContent = data[key];
                 selectElement.appendChild(option);
             });
         }
     });
 }
 
-
-
-function selectSong() {
-  const uSong = document.getElementById("u-songs").value;
-  const eSong = document.getElementById("e-songs").value;
-  const rSong = document.getElementById("r-songs").value;
-  const mSong = document.getElementById("m-songs").value;
-
-  return uSong || rSong || eSong || mSong;
-}
-// проверка на корректность имени
-function validateName(name){
-  const regeln = /^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ]+$/u;
-  if (!regeln.test(name)) {
-    return false;
-  }
-  else { return true; }
-}
-
-SendBtn.addEventListener("click", () => {
-  const userName = document.getElementById("users_name").value;
-  const fromList = selectSong();
-  const inputSongs = document.getElementById("inputSong").value;
-  const songName = fromList||inputSongs;
-
-  if (!validateName(userName)){
-    alert("imya soderjit zifry");
-    return;
-  }
-
-  if (userName&&songName) {
-    push(ref(db, "songsList"), {
-      name: userName,
-      song: songName
-    }); 
-    alert("Пісня додана до списку");
-  } else { 
-    alert("sorry ne poluchilos"); } 
-
-});
-
-
-
-
+// 6. Инициализация селектов
 selects.forEach(select => {
     select.addEventListener("change", () => {
-        // Если выбрали в этом, очистить все остальные
         selects.forEach(other => {
             if (other !== select) other.value = "";
         });
     });
 });
 
-// Запускаем заполнение для каждого
-fillSelect(uSongsRef, selectU);
-fillSelect(rSongsRef, selectR);
-fillSelect(eSongsRef, selectE);
-fillSelect(mSongsRef, selectM);
+fillSelect(ref(db, 'u-songs'), selectU);
+fillSelect(ref(db, 'r-songs'), selectR);
+fillSelect(ref(db, 'e-songs'), selectE);
+fillSelect(ref(db, 'm-songs'), selectM);

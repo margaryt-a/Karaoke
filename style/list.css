@@ -13,7 +13,7 @@
 .row {
     display: grid;
     /* 50px под номер, остальное делим пополам */
-    grid-template-columns: 50px 1fr 1fr;
+    grid-template-columns: 50px 1fr 1fr 50px;
     padding: 12px;
     border-bottom: 1px solid #eee;
     align-items: center;
@@ -32,4 +32,8 @@
 .col-left { text-align: center; color: #a595b4; }
 .col-medium { font-weight: 500; color: #a595b4; }
 .col-rechts { color: #a595b4; }
-
+.col-status {
+    text-align: center;
+    color: #a595b4;
+    font-size: 18px;
+}

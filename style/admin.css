@@ -1,0 +1,47 @@
+body{
+    background-color: #542A2C;
+}
+
+.edit-p {
+    text-decoration: underline;
+    color: rgb(197, 238, 238);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+}
+.container { max-width: 800px; 
+    margin: 20px auto; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+
+/* Общие настройки строк */
+.edit-row, .queue-row {
+    display: grid;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Разные сетки для разных таблиц */
+.edit-row { grid-template-columns: 50px 1fr 40px; }
+.queue-row { grid-template-columns: 50px 1fr 1fr 50px; }
+
+/* Заголовки */
+.edit-header, .queue-header { font-weight: bold; background: #D8C6A0; border-radius: 8px 8px 0 0; }
+
+/* Форма добавления */
+.form-container { padding: 15px; background: #c88686; border-radius: 4px; margin-bottom: 10px; }
+
+.all-delete {
+
+    background-color: rgb(255, 0, 0);
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0px 5px 14px 2px #d00000;
+    border: none;
+    margin-top: 4px;
+    margin-left: 5px;
+    color: #c8b58c;
+}
