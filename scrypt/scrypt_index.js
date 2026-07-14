@@ -41,6 +41,19 @@ const inputSong = document.getElementById("inputSong");
 
 const selects = [selectU, selectR, selectE, selectM, inputSong];
 
+// В самом начале файла или там, где проверяешь логин
+onValue(ref(db, 'system/lastReset'), (snapshot) => {
+    const lastReset = snapshot.val();
+    const storedReset = localStorage.getItem('lastReset');
+
+    if (lastReset && lastReset != storedReset) {
+        // Если база была очищена, а у нас в памяти старый статус — сбрасываемся
+        localStorage.clear();
+        localStorage.setItem('lastReset', lastReset); // Запоминаем новый номер сброса
+        location.reload(); // Перезагружаем страницу, чтобы отправить пользователя на экран логина
+    }
+});
+
 // 3. Логика Авторизации
 window.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem("isLoggedIn") === "true") {

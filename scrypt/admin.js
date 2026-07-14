@@ -178,6 +178,7 @@ onValue(ref(db), (snapshot) => {
         if (confirm("Очищення співаючих та списку пісень")) {
         remove(ref(db, 'songsList'));
         remove(ref(db, 'users'));
+        set(ref(db, 'system/lastReset'), Date.now());
         }
     });
 

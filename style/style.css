@@ -5,6 +5,9 @@ body { font-family: sans-serif; padding: 20px;
 img {
    height: 400px;
    width: auto;
+   display: block;    /* Чтобы работали отступы */
+   margin-left: auto; /* Авто-отступ слева */
+   margin-right: auto; /* Авто-отступ справа */
    mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%); 
    -webkit-mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
 }
@@ -85,4 +88,30 @@ input:not(:placeholder-shown) + label {
 .hidden {
    display: none;
    opacity: 0;
+}
+
+@media (max-width: 600px) {
+    /* 1. Делаем инпуты и селекты на всю ширину экрана */
+    input, select {
+        width: 90% !important; /* На мобилках лучше занимать почти всё место */
+    }
+
+    /* 2. Уменьшаем картинку, чтобы не вылезала за экран */
+    img {
+        height: auto;
+        width: 90%; /* Она станет адаптивной по ширине */
+        max-height: 250px;
+    }
+
+    /* 3. Центрируем текст, если он уезжает */
+    h1 {
+        font-size: 24px;
+    }
+
+    /* 4. Если есть кнопки, делаем их крупнее для нажатия пальцем */
+    .send_btn {
+        width: 150px;
+        height: 50px;
+        font-size: 18px;
+    }
 }
