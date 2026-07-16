@@ -11,14 +11,14 @@ import {
 } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAzoVzg0KbJ9m_NYiOwBpIQKN5hflmu1t4",
-  authDomain: "karaoke-ua-inre.firebaseapp.com",
-  databaseURL: "https://karaoke-ua-inre-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "karaoke-ua-inre",
-  storageBucket: "karaoke-ua-inre.firebasestorage.app",
-  messagingSenderId: "527250822840",
-  appId: "1:527250822840:web:000d6ac7e80e7a2c3ac64d"
-};
+    apiKey: "AIzaSyAzoVzg0KbJ9m_NYiOwBpIQKN5hflmu1t4",
+    authDomain: "karaoke-ua-inre.firebaseapp.com",
+    databaseURL: "https://karaoke-ua-inre-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "karaoke-ua-inre",
+    storageBucket: "karaoke-ua-inre.firebasestorage.app",
+    messagingSenderId: "527250822840",
+    appId: "1:527250822840:web:000d6ac7e80e7a2c3ac64d"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

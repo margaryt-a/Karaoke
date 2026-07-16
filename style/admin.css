@@ -8,11 +8,18 @@ body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 20px;
 }
-.container { max-width: 800px; 
+.biblioteka, .ochered {
+    color: rgb(197, 238, 238);
+    text-align: center;
+    margin-bottom: 0;
+}
+.container { 
+    max-width: auto; 
     margin: 20px auto; 
     padding: 20px; 
     border-radius: 8px; 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+}
 
 /* Общие настройки строк */
 .edit-row, .queue-row {
@@ -21,6 +28,7 @@ body{
     border-bottom: 1px solid #eee;
     align-items: center;
     gap: 10px;
+    font-size:larger;
 }
 
 /* Разные сетки для разных таблиц */
@@ -34,6 +42,7 @@ body{
 .form-container { padding: 15px; background: #c88686; border-radius: 4px; margin-bottom: 10px; }
 
 .all-delete {
+    display: block;
 
     background-color: rgb(255, 0, 0);
     height: 30px;
@@ -44,4 +53,6 @@ body{
     margin-top: 4px;
     margin-left: 5px;
     color: #c8b58c;
+    margin-left: auto;
+    margin-right: auto;
 }

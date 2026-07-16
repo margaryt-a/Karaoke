@@ -13,14 +13,14 @@ import {
 } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAzoVzg0KbJ9m_NYiOwBpIQKN5hflmu1t4",
-  authDomain: "karaoke-ua-inre.firebaseapp.com",
-  databaseURL: "https://karaoke-ua-inre-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "karaoke-ua-inre",
-  storageBucket: "karaoke-ua-inre.firebasestorage.app",
-  messagingSenderId: "527250822840",
-  appId: "1:527250822840:web:000d6ac7e80e7a2c3ac64d"
-};
+    apiKey: "AIzaSyAzoVzg0KbJ9m_NYiOwBpIQKN5hflmu1t4",
+    authDomain: "karaoke-ua-inre.firebaseapp.com",
+    databaseURL: "https://karaoke-ua-inre-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "karaoke-ua-inre",
+    storageBucket: "karaoke-ua-inre.firebasestorage.app",
+    messagingSenderId: "527250822840",
+    appId: "1:527250822840:web:000d6ac7e80e7a2c3ac64d"
+  };
 
 
 // 1. Инициализация Firebase
@@ -68,7 +68,7 @@ loginBtn.addEventListener("click", () => {
     const nameInput = document.getElementById("input-name").value.trim();
 
     if (!codeInput || !nameInput) {
-        alert("Введіть код та ім'я!");
+        alert("Введите код и имя");
         return;
     }
 
@@ -93,12 +93,12 @@ loginBtn.addEventListener("click", () => {
 
         // 2. ПРОВЕРКА ОБЫЧНОГО ПОЛЬЗОВАТЕЛЯ
         if (codeInput !== dbCodes.userCode) {
-            alert("Невірний код доступу!");
+            alert("Неверный код доступа!");
             return;
         }
 
         if (!validateName(nameInput)) {
-            alert("Ім'я може містити тільки літери!");
+            alert("Имя может содержать только буквы!");
             return;
         }
 
@@ -117,7 +117,7 @@ loginBtn.addEventListener("click", () => {
             }
 
             if (nameTaken) {
-                alert("Це ім'я вже зайняте іншим учасником!");
+                alert("Это имя было уже зарегистрировано, попрбуйте другое!");
             } else {
                 push(usersRef, { name: nameInput }).then(() => {
                     localStorage.setItem("isLoggedIn", "true");
@@ -125,9 +125,9 @@ loginBtn.addEventListener("click", () => {
                     
                     loginScreen.style.display = "none";
                     mainScreen.classList.remove("hidden");
-                    console.log("Реєстрація успішна!");
+                    console.log("Регестрация прошла успешно, хорошего вечера!");
                 }).catch((error) => {
-                    alert("Помилка при реєстрації: " + error.message);
+                    alert("Ошибка регистрации: " + error.message);
                 });
             }
         });
@@ -150,7 +150,7 @@ SendBtn.addEventListener("click", () => {
     const songName = fromList || inputSongs;
 
     if (!songName) {
-        alert("Оберіть або введіть пісню!");
+        alert("Выберите или запишите песню!");
         return;
     }
 
@@ -170,19 +170,15 @@ SendBtn.addEventListener("click", () => {
         }
 
         if (alreadyInQueue) {
-            alert("Ви вже в черзі! Дочекайтеся виконання своєї пісні.");
+            alert("Вы уже добавлены в очередь, дождитесь своего исполнения.");
         } else {
-            // ОТПРАВЛЯЕМ В БАЗУ: Имя берется из переменной userName
-            // ... внутри блока else ...
-              console.log("Попытка отправки в Firebase...", { name: userName, song: songName });
 
               push(songsRef, {
                   name: userName,
                   song: songName,
                   status: "pending"
               }).then(() => {
-                  console.log("УСПЕХ: Данные ушли в базу!");
-                  alert("Пісня додана до списку!");
+                  alert("Песня добавлена в список!");
               }).catch((error) => {
                   console.error("ОШИБКА отправки:", error); // Если ошибка здесь — база нас не пускает!
                   alert("Помилка бази даних: " + error.message);
@@ -193,7 +189,7 @@ SendBtn.addEventListener("click", () => {
 
 // 5. Вспомогательные функции
 function validateName(name) {
-    const regeln = /^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ]+$/u;
+    const regeln = /^[ a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ]+$/u;
     return regeln.test(name);
 }
 
@@ -204,7 +200,7 @@ function selectSong() {
 function fillSelect(refPath, selectElement) {
     onValue(refPath, (snapshot) => {
         const data = snapshot.val();
-        selectElement.innerHTML = '<option value="">Оберіть пісню</option>';
+        selectElement.innerHTML = '<option value="">Выберите песню</option>';
         if (data) {
             Object.keys(data).forEach((key) => {
                 const option = document.createElement("option");

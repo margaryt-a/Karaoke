@@ -7,8 +7,8 @@
     <script type="importmap">
     {
       "imports": {
-        "firebase/app": "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js",
-        "firebase/database": "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js"
+        "firebase/app": "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js",
+        "firebase/database": "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js"
       }
     }
     </script>
@@ -18,31 +18,31 @@
 <body>
     <!--<h1>Karaoke Recklinghausen</h1>-->
     <div class="first_datei">
-        <input type="text" id="input-code" placeholder="Input code">
-        <input type="text" id="input-name" placeholder="Input name">
-        <button id="login-btn">Send</button>
+        <input type="text" id="input-code" placeholder="Input code" style="background-color: #FAEDC3; font-weight: bold;">
+        <input type="text" id="input-name" placeholder="Input name" style="background-color: #FAEDC3; font-weight: bold;">
+        <button id="login-btn" class="login-btn">Регистрация</button>
     </div>
     <main class="main hidden">
-        <h1 class="songChoice">Оберіть пісню</h1>
-        <p class="typeSong">Ukranian songs</p>   
+        <h1 class="songChoice">Выберите песню</h1>
+        <p class="typeSong">Украинские песни</p>   
         <select name="u-songs" id="u-songs">
         </select>
 
-        <p class="typeSong">Russian songs</p>
+        <p class="typeSong">Русские песни</p>
         <select name="r-songs" id="r-songs">
         </select>
 
-        <p class="typeSong">Englisch songs</p>
+        <p class="typeSong">Английские песни</p>
         <select name="e-songs" id="e-songs">
         </select>
 
-        <p class="typeSong">multik songs</p>
+        <p class="typeSong">Песни из мультиков</p>
         <select name="m-songs" id="m-songs">
         </select>
     
         <div class="input-group">
             <input type="text" id="inputSong" placeholder="">
-            <label for="inputSong">Інша пісня</label>
+            <label for="inputSong">Другая песня</label>
         </div>
         
 
@@ -53,8 +53,8 @@
         
 
 
-        <button class="send_btn" id="send_btn">Send</button>
-        <a href="songsList.html" target="_blank" class="listview" style="color: #FAEDC3;">Переглянути список</a>
+        <button class="send_btn" id="send_btn">Отправить в очередь</button>
+        <a href="songsList.html" target="_blank" class="listview" style="color: #FAEDC3; display: block;">Посмотреть очередь</a>
     </main>
     <!--<button onclick="localStorage.clear(); location.reload();">Сбросить тест</button>-->
     
